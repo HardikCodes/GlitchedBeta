@@ -92,13 +92,13 @@ setTimeout(() =>{
                                         seventhMessage.style.display ='none'
                                     },3700);
                                 },5000);
-                            },1)
-                        })
-                    },13)
-                },7)
-            },10)
-        },5)
-    },3000)
+                            },10000)
+                        },5000)
+                    },13000)
+                },7000)
+            },10000)
+        },5000)
+    },300000)
     firstMessageFromRealWorld.style.display = 'none'
 
 
