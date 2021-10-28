@@ -11,6 +11,7 @@ const sixthMessage = document.getElementById('6th-message')
 const seventhMessage = document.getElementById('7th-message')
 
 
+
 let playAudio = confirm('Would you like to play with sound effects')
 let invinceibleMode = false
 let points = 0
@@ -26,7 +27,6 @@ let spawnMonstersID
 let numberOfMonstersSpawnedInBossMode = 0
 let playerX = innerWidth / 2
 let playerY = innerHeight / 2
-
 
 function randomNum(min, max){
     let num = Math.random() * (max - min) + min;
@@ -166,6 +166,8 @@ class Particle {
         this.y+=this.velocity.y
     }
 }
+
+
 
 const player = new Player(playerX,playerY,10,'white')
 const playerPowerUp = new Player(player.x,player.y,10,'blue')
