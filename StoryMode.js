@@ -25,10 +25,14 @@ setTimeout(() =>{
                         fifthMessage.style.display ='none'
                         sixthMessage.style.display ='block'
                         setTimeout(() => {
+                            tripleShooterPlayer.x = player.x
+                            tripleShooterPlayer.y = player.y
                             tripleShootPwrUp = true
                             animate()
                             sixthMessage.style.display ='none'
                             setTimeout(() => {
+                                playerPowerUp.x = player.x
+                                playerPowerUp.y = player.y
                                 powerUpMode = true
                                 setTimeout(() => {
                                     powerUpMode = false
@@ -45,14 +49,15 @@ setTimeout(() =>{
                                         x = Math.random() * canvas.width
                                         y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
                                     }
-                            
+                                    
+
+                                    let angle = Math.atan2(playerY - y , playerX - x)
+
                                     const color = `hsl(${Math.random()*360},${Math.random()*100}%,50%)`
-                            
-                                    const angle = Math.atan2(playerX - y , playerY - x)
                                 
                                     let velocity = {
-                                        x:Math.cos(angle)*55/radius,
-                                        y:Math.sin(angle)*55/radius
+                                        x:Math.cos(angle)*75/radius,
+                                        y:Math.sin(angle)*75/radius
                                     }
                             
                                     monsters.push(new Monster(x,y,radius,color,velocity))
@@ -84,16 +89,16 @@ setTimeout(() =>{
                                     
 
                                     setInterval(() => {
-                                        tripleShooterPlayer.x = playerX
-                                        tripleShooterPlayer.y = playerY
+                                        tripleShooterPlayer.x = player.x
+                                        tripleShooterPlayer.y = player.y
                                         tripleShootPwrUp = true
                                     }, 25000);
                                     setTimeout(() => {
                                         seventhMessage.style.display ='none'
-                                    },3700);
+                                    },37000);
                                 },5000);
                             },10000)
-                        },5000)
+                        }1000)
                     },13000)
                 },7000)
             },10000)
@@ -156,31 +161,45 @@ const monsters = []
 function spawnMonsters() {
         setInterval(() => {
         const radius = Math.random() * (70 - 10) + 10
+        
         let x 
-        let y 
+    let y 
+    if (Math.random() < 0.5){
+       x = Math.random() < 0.5 ? 0-radius : canvas.width + radius
+        y = Math.random() * canvas.height
+    }else{
+        x = Math.random() * canvas.width
+        y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+    }
 
-        if (Math.random() < 0.5){
-            x = Math.random() < 0.5 ? 0-radius : canvas.width + radius
-            y = Math.random() * canvas.height
-        }else{
-            x = Math.random() * canvas.width
-            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
-        }
+    let angle = Math.atan2(playerY - y , playerX - x)
+
 
         const color = `hsl(${Math.random()*360},${Math.random()*100}%,50%)`
-
-        const angle = Math.atan2(playerY - y , playerX - x)
     
         let velocity = {
             x:Math.cos(angle)*50/radius,
             y:Math.sin(angle)*50/radius
         }
 
+
         monsters.push(new Monster(x,y,radius,color,velocity))
     },3000 - time*time * 0.85)
 }
 
 function animate(){
+    monsters.forEach(monster => {
+    let firstTime = false
+    const monsterWallDist = Math.hypot(canvas.width - monster.x , canvas.height - monster.y)
+    if(firstTime === true && monster.x > canvas.width- monster.radius || monster.x<monster.radius){
+        monster.velocity.x = -monster.velocity.x
+        firstTime = false
+    }
+    if(firstTime === true && monster.y > canvas.height- monster.radius || monster.y<monster.radius ){
+        monster.velocity.y = -monster.velocity.y
+        firstTime = false
+    }
+    });
     c.fillStyle ='rgba(0,0,0,0.1)'
     c.fillRect(0,0,canvas.width,canvas.height)
 
@@ -198,6 +217,7 @@ function animate(){
 
 
     player.draw()
+
 
     if(powerUpMode === true){
         playerPowerUp.draw()
@@ -331,6 +351,8 @@ if(i >=3){
 
     setInterval(() => {
         if(Math.round(Math.random()*200) === 200){
+            playerPowerUp.x = player.x
+            playerPowerUp.y = player.y
             powerUpMode = true
         setTimeout(() => {
             powerUpMode = false
@@ -348,8 +370,8 @@ if(i >=3){
 
             setInterval(() => {
                 if(Math.round(Math.random()*200) === 200){
-                    tripleShooterPlayer.x = playerX
-                    tripleShooterPlayer.y = playerY
+                    tripleShooterPlayer.x = player.x
+                    tripleShooterPlayer.y = player.y
                     tripleShootPwrUp = true
                 setTimeout(() => {
                     tripleShootPwrUp = false
@@ -473,4 +495,7 @@ addEventListener('keydown', function(e) {
             if (shockwavePWRUp === true){
                 shockwavePWRUpPlayer.draw()
             }
+            break;
+            let hi = 'dummy text'
+
 	}})
