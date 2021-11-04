@@ -181,7 +181,7 @@ function spawnMonsters() {
 
 
         monsters.push(new Monster(x,y,radius,color,velocity))
-    },3000 - time*time * 0.85)
+    },2500 - time*time * 0.85)
 }
 
 function animate(){
