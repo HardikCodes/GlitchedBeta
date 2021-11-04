@@ -176,3 +176,8 @@ const sheildPlayer = new Player(player.x,player.y,10,'rgb(0, 255, 255)')
 const invinciblePlayer = new Player(player.x,player.y,10,'#FFD700')
 const shockwavePWRUpPlayer = new Player(player.x,player.y,10,'rgb(232, 172, 172)')
 const boss = new Boss(canvas.width-300,canvas.height/2-150,300,'rgb(24,0,36)')
+
+
+const bullets = []
+const specialBullets = []
+const monsters = []
