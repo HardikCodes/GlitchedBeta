@@ -39,8 +39,8 @@ setTimeout(() =>{
                                 },15000)
                                 seventhMessage.style.display = 'block'
                                 setInterval(() => {
-                                    if(numberOfMonstersSpawnedInBossMode < 1){
-                                    const radius = Math.random() * 800 + 600
+                                    if(numberOfMonstersSpawnedInBossMode < 25){
+                                    const radius = Math.random() * canvas.height + canvas.height/2
                             
                                     if (Math.random() < 0.5){
                                         x = Math.random() < 0.5 ? 0-radius : canvas.width + radius
@@ -95,14 +95,14 @@ setTimeout(() =>{
                                     }, 25000);
                                     setTimeout(() => {
                                         seventhMessage.style.display ='none'
-                                    },37000);
+                                    },3700);
                                 },5000);
-                            },10000)
-                        },1000)
-                    },13000)
-                },7000)
-            },10000)
-        },5000)
+                            },1)
+                        })
+                    },13)
+                },7)
+            },10)
+        },5)
     },300000)
     firstMessageFromRealWorld.style.display = 'none'
 
@@ -145,9 +145,6 @@ class Boss {
 
 const onesAndZeros = []
 
-const bullets = []
-const specialBullets = []
-const monsters = []
 
     setInterval(() => {
         let oneZeroY = canvas.height
@@ -165,11 +162,11 @@ function spawnMonsters() {
         let x 
     let y 
     if (Math.random() < 0.5){
-       x = Math.random() < 0.5 ? 0-radius : canvas.width + radius
+       x = Math.random() < 0.5 ? 0 + radius + 1 : canvas.width - radius -1
         y = Math.random() * canvas.height
     }else{
         x = Math.random() * canvas.width
-        y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
+        y = Math.random() < 0.5 ? 0 + 1 + radius : canvas.height -1 - radius 
     }
 
     let angle = Math.atan2(playerY - y , playerX - x)
@@ -188,6 +185,7 @@ function spawnMonsters() {
 }
 
 function animate(){
+    /*
     monsters.forEach(monster => {
     let firstTime = false
     const monsterWallDist = Math.hypot(canvas.width - monster.x , canvas.height - monster.y)
@@ -195,11 +193,20 @@ function animate(){
         monster.velocity.x = -monster.velocity.x
         firstTime = false
     }
+    if(firstTime === true && monster.x < canvas.width- monster.radius || monster.x < monster.radius){
+        monster.velocity.x = -monster.velocity.x
+        firstTime = false
+    }
     if(firstTime === true && monster.y > canvas.height- monster.radius || monster.y<monster.radius ){
         monster.velocity.y = -monster.velocity.y
         firstTime = false
     }
+    if(firstTime === true && monster.y < canvas.height- monster.radius || monster.y<monster.radius ){
+        monster.velocity.y = -monster.velocity.y
+        firstTime = false
+    }
     });
+    */
     c.fillStyle ='rgba(0,0,0,0.1)'
     c.fillRect(0,0,canvas.width,canvas.height)
 
@@ -363,6 +370,8 @@ if(i >=3){
     
             setInterval(() => {
                 if(Math.round(Math.random()*500) === 500){
+                    sheildPlayer.x = player.x
+                    sheildPlayer.y = player.y
             shieldPwrUp = true
                 }
             }, 1000);
@@ -414,6 +423,17 @@ addEventListener('keydown', function(e) {
             if (shockwavePWRUp === true){
                 shockwavePWRUpPlayer.draw()
             }
+            monsters.forEach(monster => {
+                
+                const radius = monster.radius
+                
+                let angle = Math.atan2(playerY - monster.y , playerX - monster.x)
+                monster.velocity = {
+                    x:Math.cos(angle)*50/radius,
+                    y:Math.sin(angle)*50/radius
+                }
+        
+            });
             break
 		case 'w': case 38:
             playerY -= 10
@@ -440,7 +460,18 @@ addEventListener('keydown', function(e) {
         
             if (shockwavePWRUp === true){
                 shockwavePWRUpPlayer.draw()
-            }
+            }           
+             monsters.forEach(monster => {
+                
+                const radius = monster.radius
+                
+                let angle = Math.atan2(playerY - monster.y , playerX - monster.x)
+                monster.velocity = {
+                    x:Math.cos(angle)*50/radius,
+                    y:Math.sin(angle)*50/radius
+                }
+        
+            });
 			break;
 		case 'd': case 68:
             playerX += 10
@@ -468,6 +499,17 @@ addEventListener('keydown', function(e) {
             if (shockwavePWRUp === true){
                 shockwavePWRUpPlayer.draw()
             }
+            monsters.forEach(monster => {
+                
+                const radius = monster.radius
+                
+                let angle = Math.atan2(playerY - monster.y , playerX - monster.x)
+                monster.velocity = {
+                    x:Math.cos(angle)*50/radius,
+                    y:Math.sin(angle)*50/radius
+                }
+        
+            });
 			break;
 		case 's': case 83:
             playerY += 10
@@ -495,6 +537,17 @@ addEventListener('keydown', function(e) {
             if (shockwavePWRUp === true){
                 shockwavePWRUpPlayer.draw()
             }
+            monsters.forEach(monster => {
+                
+                const radius = monster.radius
+                
+                let angle = Math.atan2(playerY - monster.y , playerX - monster.x)
+                monster.velocity = {
+                    x:Math.cos(angle)*50/radius,
+                    y:Math.sin(angle)*50/radius
+                }
+        
+            });
             break;
             let hi = 'dummy text'
 
